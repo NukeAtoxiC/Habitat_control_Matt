@@ -210,54 +210,102 @@ void setup()  {
 void loop()  {  
   heat1();                           // Check hotend temperature
   cool1();                           // Check coolend temperature
- 
-    DateTime now = RTC.now();
-    lcd.setCursor(0, 0);                               // Move cursor
-    lcd.print("                    ");                 // Clear the line
-    lcd.setCursor(0, 0);
-    lcd.print(now.year(), DEC);
-    lcd.setCursor(4, 0);
-    lcd.print('/');
-    lcd.setCursor(5, 0);
-    lcd.print(now.month(), DEC);
-    lcd.setCursor(7, 0);
-    lcd.print('/');
-    lcd.setCursor(8, 0);
-    lcd.print(now.day(), DEC);
-    lcd.setCursor(11, 0);
-    lcd.print(now.hour(), DEC);
-    lcd.setCursor(13, 0);
-    lcd.print(':');
-    lcd.setCursor(14, 0);
-    lcd.print(now.minute(), DEC);
   
-  if(now.hour()<7)  {
-  heat2();                           
-  }  
-  else if(now.hour()<10)  {
-  digitalWrite(relay_1, relay_OFF);
-  lcd.setCursor(0, 3);
-  lcd.print("                    ");
-  digitalWrite(relay_2, relay_ON);
-  digitalWrite(relay_3, relay_ON); 
-  }
-  else if(now.hour()<13) {
-  digitalWrite(relay_2, relay_OFF);
-  digitalWrite(relay_3, relay_OFF);
-  }
-  else if(now.hour()<22) {
-  digitalWrite(relay_2, relay_ON);
-  digitalWrite(relay_3, relay_ON);
-  }
-  else if(now.hour()<23)  {
-  digitalWrite(relay_2, relay_OFF);
-  digitalWrite(relay_3, relay_OFF);  
-  evening();
-  heat2();
+  DateTime now = RTC.now();
+  lcd.setCursor(0, 0);                               // Move cursor
+  lcd.print("                    ");                 // Clear the line
+  if(now.day()<10)  {
+    lcd.setCursor(0, 0);
+    lcd.print('0');
+    lcd.setCursor(1, 0);
+    lcd.print(now.day(), DEC);
   }
   else  {
-  dark();
-  heat2();
+    lcd.setCursor(0, 0);
+    lcd.print(now.day(), DEC);
+  }
+  lcd.setCursor(2, 0);
+  lcd.print('/');
+  if(now.month()<10)  {
+    lcd.setCursor(3, 0);
+    lcd.print('0');
+    lcd.setCursor(4, 0);
+    lcd.print(now.month(), DEC);
+  }
+  else  {
+    lcd.setCursor(3, 0);
+    lcd.print(now.month(), DEC);
+  }
+  lcd.setCursor(5, 0);
+  lcd.print('/');
+  lcd.setCursor(6, 0);
+  lcd.print(now.year(), DEC);
+  if(now.hour()<10)  {
+    lcd.setCursor(11, 0);
+    lcd.print('0');
+    lcd.setCursor(12, 0);
+    lcd.print(now.hour(), DEC);
+  }
+  else  {
+    lcd.setCursor(11, 0);
+    lcd.print(now.hour(), DEC);
+  }
+  lcd.setCursor(13, 0);
+  lcd.print(':');
+  if(now.minute()<10)  {
+    lcd.setCursor(14, 0);
+    lcd.print('0');
+    lcd.setCursor(15, 0);
+    lcd.print(now.minute(), DEC);  
+  }
+  else  {
+    lcd.setCursor(14, 0);
+    lcd.print(now.minute(), DEC);
+  }
+  
+  if(now.hour()<7)  {
+    heat2();                           
+  }  
+  else if(now.hour()<10)  {
+    digitalWrite(relay_1, relay_OFF);
+    lcd.setCursor(0, 3);
+    lcd.print("                    ");
+    digitalWrite(relay_2, relay_ON);
+    lcd.setCursor(11, 1);
+    lcd.print("Light ON");
+    digitalWrite(relay_3, relay_ON);
+    lcd.setCursor(11, 2);
+    lcd.print("Lamp ON"); 
+  }
+  else if(now.hour()<13) {
+    digitalWrite(relay_2, relay_OFF);
+    lcd.setCursor(11, 1);
+    lcd.print("Light OFF");    
+    digitalWrite(relay_3, relay_OFF);
+    lcd.setCursor(11, 2);
+    lcd.print("Lamp OFF");    
+  }
+  else if(now.hour()<22) {
+    digitalWrite(relay_2, relay_ON);
+    lcd.setCursor(11, 1);
+    lcd.print("Light ON");    
+    digitalWrite(relay_3, relay_ON);
+    lcd.setCursor(11, 2);
+    lcd.print("Lamp ON");    
+  }
+  else if(now.hour()<23)  {
+    digitalWrite(relay_2, relay_OFF);
+    lcd.setCursor(11, 1);
+    lcd.print("Light OFF");    
+    digitalWrite(relay_3, relay_OFF);
+    lcd.setCursor(11, 2);
+    lcd.print("Lamp OFF");    
+    evening();
+    heat2();
+  }
+  else  {
+    dark();
+    heat2();
   }
   
   delay(4000);

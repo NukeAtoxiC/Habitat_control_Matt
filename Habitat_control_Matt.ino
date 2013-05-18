@@ -204,16 +204,23 @@ void setup()  {
     Serial.println("RTC is NOT running!");
     // following line sets the RTC to the date & time this sketch was compiled
     RTC.adjust(DateTime(__DATE__, __TIME__));
-  }    
+  }
+  digitalWrite(relay_2, relay_ON);   // Lights on
+  lcd.setCursor(11, 1);
+  lcd.print("Light ON");
+  delay(300000);                     // 5 minute wait before continuing the sketch
+  digitalWrite(relay_2, relay_OFF);
+  lcd.setCursor(11, 1);
+  lcd.print("Light OFF");            // Lights off
 }
 
 void loop()  {  
   heat1();                           // Check hotend temperature
   cool1();                           // Check coolend temperature
   
-  DateTime now = RTC.now();
-  lcd.setCursor(0, 0);                               // Move cursor
-  lcd.print("                    ");                 // Clear the line
+  DateTime now = RTC.now();          // Records the time from the RTC
+  lcd.setCursor(0, 0);               // Move cursor
+  lcd.print("                    "); // Clear the line
   if(now.day()<10)  {
     lcd.setCursor(0, 0);
     lcd.print('0');

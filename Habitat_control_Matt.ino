@@ -38,15 +38,15 @@ Jobs list:  (Implemented in code though untested)
 
 //===================================== Temperature settings ==================================================
 
-int fahrenheit(true);                 // Set to false for Celsius
+int fahrenheit(false);                 // Set to false for Celsius
 int fans(false);                       // Set to false if not using fans
 
 // Enviroment 1 (V1)
 //int hotend1(88);                      // Adjust for hotend temperature
-int coolend(90);                      // Adjust for coolend temperature
+int coolend(30);                      // Adjust for coolend temperature
 
 // Enviroment 2 (V2)
-int hotend2(72);                      // Adjust for hotend temperature
+int hotend2(26);                      // Adjust for hotend temperature
 //int coolend2();                       // Adjust for coolend temperature
 
 //========================================= Time settings =====================================================
